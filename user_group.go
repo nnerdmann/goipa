@@ -18,6 +18,7 @@ type GroupRecord struct {
 	GidNumber   []string `json:"gidnumber"`
 	ObjectClass []string `json:"objectclass"`
 	Users       []string `json:"member_user"`
+	Description []string `json:"description"`
 }
 
 var ErrorGroupRecordNotInitialized = errors.New("group record is not initialized")

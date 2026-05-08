@@ -10,8 +10,8 @@ import (
 	"os/user"
 	"testing"
 
-	ipa "github.com/ivanovilia96/goipa"
 	_ "github.com/joho/godotenv/autoload"
+	ipa "github.com/nnerdmann/goipa"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

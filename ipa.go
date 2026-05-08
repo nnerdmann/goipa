@@ -21,13 +21,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-ini/ini"
 	"github.com/jcmturner/gokrb5/v8/client"
 	"github.com/jcmturner/gokrb5/v8/config"
 	"github.com/jcmturner/gokrb5/v8/credentials"
 	"github.com/jcmturner/gokrb5/v8/keytab"
 	"github.com/jcmturner/gokrb5/v8/spnego"
 	log "github.com/sirupsen/logrus"
+	"gopkg.in/ini.v1"
 )
 
 const (

@@ -9,14 +9,14 @@ import (
 	"testing"
 
 	"github.com/brianvoe/gofakeit/v6"
-	ipa "github.com/ivanovilia96/goipa"
+	ipa "github.com/nnerdmann/goipa"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func addTestUser(c *ipa.Client, username, password string) (*ipa.User, error) {
 	user := ipa.User{}
-	
+
 	user.Username = username
 	user.First = gofakeit.FirstName()
 	user.Last = gofakeit.LastName()

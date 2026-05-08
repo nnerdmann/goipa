@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/brianvoe/gofakeit/v6"
+	ipa "github.com/nnerdmann/goipa"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	ipa "github.com/ivanovilia96/goipa"
 )
 
 func TestAddTOTPToken(t *testing.T) {
