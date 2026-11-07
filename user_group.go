@@ -19,6 +19,7 @@ type GroupRecord struct {
 	ObjectClass []string `json:"objectclass"`
 	Users       []string `json:"member_user"`
 	Description []string `json:"description"`
+	MemberOf    []string `json:"memberof_group"`
 }
 
 var ErrorGroupRecordNotInitialized = errors.New("group record is not initialized")
@@ -67,7 +68,7 @@ func (c *Client) GroupShow(cn string) (*GroupRecord, error) {
 	var options = map[string]interface{}{
 		"no_members": false,
 		"raw":        false,
-		"all":        false,
+		"all":        true,
 		"rights":     false,
 	}
 

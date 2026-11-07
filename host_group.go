@@ -20,7 +20,7 @@ func (c *Client) HostGroupAdd(cn string) (*GroupRecord, error) {
 	return groupRec, nil
 }
 
-//HostGroupAddMember добавляет сервер к группе узлов (под member тут имеется в виду сервер, пример :"ttt-ttt-tst08.tst.cloud.vimpelcom.ru")
+// HostGroupAddMember добавляет сервер к группе узлов (под member тут имеется в виду сервер, пример :"ttt-ttt-tst08.tst.cloud.vimpelcom.ru")
 func (c *Client) HostGroupAddMember(groupCn string, host string) (*GroupRecord, error) {
 	var groupRec *GroupRecord
 
@@ -42,7 +42,7 @@ func (c *Client) HostGroupAddMember(groupCn string, host string) (*GroupRecord, 
 	return groupRec, nil
 }
 
-//HostGroupRemoveMember удаляет сервер из группы узлов (под member тут имеется в виду сервер, пример :"ttt-ttt-tst08.tst.cloud.vimpelcom.ru")
+// HostGroupRemoveMember удаляет сервер из группы узлов (под member тут имеется в виду сервер, пример :"ttt-ttt-tst08.tst.cloud.vimpelcom.ru")
 func (c *Client) HostGroupRemoveMember(groupCn string, host string) error {
 	var options = map[string]interface{}{
 		"all":  true,

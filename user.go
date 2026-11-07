@@ -43,6 +43,7 @@ type User struct {
 	Uid              string              `json:"uidnumber"`
 	Gid              string              `json:"gidnumber"`
 	Groups           []string            `json:"memberof_group"`
+	IndirectGroups   []string            `json:"memberofindirect_group"`
 	SSHAuthKeys      []*SSHAuthorizedKey `json:"ipasshpubkey"`
 	AuthTypes        []string            `json:"ipauserauthtype"`
 	HasKeytab        bool                `json:"has_keytab"`
@@ -199,6 +200,10 @@ func (u *User) fromJSON(raw []byte) error {
 	u.LastLoginFail = ParseDateTime(res.Get("krblastfailedauth.0.__datetime__").String())
 	res.Get("memberof_group").ForEach(func(key, value gjson.Result) bool {
 		u.Groups = append(u.Groups, value.String())
+		return true
+	})
+	res.Get("memberofindirect_group").ForEach(func(key, value gjson.Result) bool {
+		u.IndirectGroups = append(u.IndirectGroups, value.String())
 		return true
 	})
 	res.Get("ipasshpubkey").ForEach(func(key, value gjson.Result) bool {
