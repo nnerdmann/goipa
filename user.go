@@ -124,10 +124,10 @@ func (u *User) ToOptions() Options {
 		"title":            u.Title,
 		"departmentnumber": u.DepartmentNumber,
 		"l":                u.L,
-		// "employeeID":        u.EmployeeID,
+		"employeenumber":   u.EmployeeNumber,
+		"employeeid":       u.EmployeeID,
 		"preferredlanguage": u.PreferredLanguage,
 		"ou":                u.OU,
-		"setattr":           u.SetAttr,
 		// "dn":                u.DN,
 		"krbprincipalname": u.Principal,
 		// "uid":               u.Username,
@@ -163,6 +163,10 @@ func (u *User) ToOptions() Options {
 		}
 	}
 
+	if u.SetAttr != "" {
+		options["setattr"] = []string{u.SetAttr}
+	}
+
 	return options
 }
 
@@ -188,6 +192,11 @@ func (u *User) fromJSON(raw []byte) error {
 	u.Preserved = res.Get("preserved").Bool()
 	u.HomeDir = res.Get("homedirectory.0").String()
 	u.Email = res.Get("mail.0").String()
+	u.EmployeeNumber = res.Get("employeenumber.0").String()
+	u.EmployeeID = res.Get("employeeid.0").String()
+	if u.EmployeeID == "" {
+		u.EmployeeID = res.Get("employeeID.0").String()
+	}
 	u.Mobile = res.Get("mobile.0").String()
 	u.TelephoneNumber = res.Get("telephonenumber.0").String()
 	u.Shell = res.Get("loginshell.0").String()
@@ -545,6 +554,18 @@ func (c *Client) UserAdd(user *User, random bool) (*User, error) {
 	return userRec, nil
 }
 
+// UserModOptions updates a user with arbitrary IPA user_mod options.
+func (c *Client) UserModOptions(username string, options Options) error {
+	if username == "" {
+		return errors.New("Username is required")
+	}
+	if options == nil {
+		options = Options{}
+	}
+	_, err := c.rpc("user_mod", []string{username}, options)
+	return err
+}
+
 // Delete user. If preserve is false the user will be permanetly deleted, if
 // true the users is moved to the Delete container. If stopOnError is false the
 // operation will be in continuous mode otherwise it will stop on errors
@@ -564,7 +585,7 @@ func (c *Client) UserDelete(preserve, stopOnError bool, usernames ...string) err
 
 // Modify user. Currently only modifies a subset of user attributes: mail,
 // givenname, sn, homedirectory, loginshell, displayname, ipasshpubkey,
-// telephonenumber, and mobile
+// telephonenumber, mobile, employeenumber, and employeeid
 func (c *Client) UserMod(user *User) (*User, error) {
 	if user.Username == "" {
 		return nil, errors.New("Username is required")
